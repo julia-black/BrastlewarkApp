@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.juliablack.brastlewarkapp.databinding.ViewInhabitantBinding
-import com.juliablack.data.model.InhabitantResponse
+import com.juliablack.domain.model.Inhabitant
 
-class InhabitantAdapter(var inhabitants: List<InhabitantResponse>) :
+class InhabitantAdapter(var inhabitants: List<Inhabitant>) :
     RecyclerView.Adapter<InhabitantAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ViewInhabitantBinding) :

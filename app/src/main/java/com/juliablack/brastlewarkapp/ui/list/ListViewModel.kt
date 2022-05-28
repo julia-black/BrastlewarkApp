@@ -1,25 +1,31 @@
 package com.juliablack.brastlewarkapp.ui.list
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.juliablack.data.model.InhabitantResponse
-import com.juliablack.data.repository.BrastlewarkRepository
+import com.juliablack.domain.GetInhabitantsUseCase
+import com.juliablack.domain.model.Inhabitant
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class ListViewModel(private val repository: BrastlewarkRepository) : ViewModel() {
+class ListViewModel(
+    private val getInhabitantsUseCase: GetInhabitantsUseCase
+) : ViewModel() {
 
-    val liveInhabitants = MutableLiveData<List<InhabitantResponse>>()
+    val liveInhabitants = MutableLiveData<List<Inhabitant>>()
+    val liveError = MutableLiveData<String>()
+
+    init {
+        getInhabitants()
+    }
 
     fun getInhabitants() {
-        repository.getInhabitants()
+        getInhabitantsUseCase.invoke()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                liveInhabitants.value = it.brastlewark
+                liveInhabitants.postValue(it)
             }, {
-                Log.d("LOG", it.toString())
+                liveError.postValue(it.message)
             })
     }
 }

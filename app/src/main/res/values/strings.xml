@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BrastlewarkApp</string>
+    <string name="reload">Reload</string>
+    <string name="error">"Error data loading: %1$s"</string>
 </resources>

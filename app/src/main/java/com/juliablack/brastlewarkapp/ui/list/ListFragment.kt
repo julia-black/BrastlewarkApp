@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.juliablack.brastlewarkapp.R
 import com.juliablack.brastlewarkapp.databinding.FragmentListBinding
 import com.juliablack.brastlewarkapp.ui.list.view.InhabitantAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,17 +34,27 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setObservers()
-        viewModel.getInhabitants()
+        setListeners()
+    }
+
+    private fun setListeners() {
+        binding.reloadButton.setOnClickListener {
+            viewModel.getInhabitants()
+        }
     }
 
     private fun setObservers() {
-        with(viewModel) {
-            liveInhabitants.observe(viewLifecycleOwner) {
-                val suitAdapter = InhabitantAdapter(it)
-                with(binding.list) {
-                    adapter = suitAdapter
-                    layoutManager = LinearLayoutManager(context)
-                }
+        with(binding) {
+            viewModel.liveInhabitants.observe(viewLifecycleOwner) {
+                list.adapter = InhabitantAdapter(it)
+                list.layoutManager = LinearLayoutManager(context)
+                messageError.visibility = View.GONE
+                reloadButton.visibility = View.GONE
+            }
+            viewModel.liveError.observe(viewLifecycleOwner) {
+                messageError.text = getString(R.string.error, it)
+                messageError.visibility = View.VISIBLE
+                reloadButton.visibility = View.VISIBLE
             }
         }
     }
