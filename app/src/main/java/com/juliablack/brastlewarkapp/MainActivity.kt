@@ -2,7 +2,7 @@ package com.juliablack.brastlewarkapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.juliablack.brastlewarkapp.ui.main.ListFragment
+import com.juliablack.brastlewarkapp.ui.list.ListFragment
 
 class MainActivity : AppCompatActivity() {
 
