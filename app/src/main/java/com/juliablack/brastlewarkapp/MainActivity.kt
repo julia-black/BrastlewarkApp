@@ -1,8 +1,8 @@
 package com.juliablack.brastlewarkapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.juliablack.brastlewarkapp.ui.main.MainFragment
+import androidx.appcompat.app.AppCompatActivity
+import com.juliablack.brastlewarkapp.ui.main.ListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
+                .replace(R.id.container, ListFragment.newInstance())
                 .commitNow()
         }
     }
