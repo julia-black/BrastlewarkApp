@@ -17,7 +17,7 @@
             android:layout_marginTop="16dp"
             android:src="@mipmap/ic_status_bar"
             app:layout_constraintBottom_toBottomOf="@id/infoLayout"
-            app:layout_constraintEnd_toStartOf="@id/infoLayout"
+            app:layout_constraintEnd_toStartOf="@id/gender"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name" />
 
@@ -43,6 +43,16 @@
             app:layout_constraintTop_toBottomOf="@id/image"
             tools:text="Name" />
 
+        <ImageView
+            android:id="@+id/gender"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="@+id/infoLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/infoLayout"
+            tools:src="@mipmap/ic_woman" />
+
         <LinearLayout
             android:id="@+id/infoLayout"
             android:layout_width="wrap_content"
@@ -50,7 +60,7 @@
             android:layout_marginTop="16dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/statusBar"
+            app:layout_constraintStart_toEndOf="@id/gender"
             app:layout_constraintTop_toBottomOf="@id/name">
 
             <TextView

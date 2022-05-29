@@ -3,6 +3,7 @@ package com.juliablack.brastlewarkapp.ui.list
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.juliablack.domain.GetInhabitantsUseCase
+import com.juliablack.domain.model.Gender
 import com.juliablack.domain.model.Inhabitant
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -15,6 +16,7 @@ class ListViewModel(
     val liveError = MutableLiveData<String>()
 
     private var loadedInhabitants: List<Inhabitant>? = null
+    private var query = ""
 
     init {
         getInhabitants()
@@ -33,8 +35,9 @@ class ListViewModel(
     }
 
     fun onQuerySearchChange(query: String) {
+        this.query = query
         if (query.isNotBlank()) {
-            liveInhabitants.postValue(filter(query))
+            liveInhabitants.postValue(filter(loadedInhabitants, query))
         } else {
             loadedInhabitants?.let {
                 liveInhabitants.postValue(it)
@@ -42,7 +45,21 @@ class ListViewModel(
         }
     }
 
-    private fun filter(query: String) = loadedInhabitants?.filter {
+    fun onClickGender(gender: Gender? = null) {
+        liveInhabitants.postValue(filterByGender(gender))
+    }
+
+    private fun filter(list: List<Inhabitant>?, query: String) = list?.filter {
         it.name.lowercase().contains(query.lowercase())
+    }
+
+    private fun filterByGender(gender: Gender?): List<Inhabitant>? {
+        return if (gender == null) {
+            filter(loadedInhabitants, query)
+        } else {
+            filter(loadedInhabitants?.filter {
+                it.gender == gender
+            }, query)
+        }
     }
 }

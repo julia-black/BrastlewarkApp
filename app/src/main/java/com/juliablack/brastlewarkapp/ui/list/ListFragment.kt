@@ -12,6 +12,7 @@ import com.juliablack.brastlewarkapp.ui.details.DetailsFragment
 import com.juliablack.brastlewarkapp.ui.list.view.InhabitantAdapter
 import com.juliablack.brastlewarkapp.util.gone
 import com.juliablack.brastlewarkapp.util.visible
+import com.juliablack.domain.model.Gender
 import com.juliablack.domain.model.Inhabitant
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -42,21 +43,32 @@ class ListFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.reloadButton.setOnClickListener {
-            viewModel.getInhabitants()
-        }
-        binding.searchView.setOnQueryTextListener(object :
-            android.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                viewModel.onQuerySearchChange(query)
-                return false
-            }
+        with(binding) {
+            searchView.setOnQueryTextListener(object :
+                android.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    viewModel.onQuerySearchChange(query)
+                    return false
+                }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                viewModel.onQuerySearchChange(newText)
-                return false
+                override fun onQueryTextChange(newText: String): Boolean {
+                    viewModel.onQuerySearchChange(newText)
+                    return false
+                }
+            })
+            reloadButton.setOnClickListener {
+                viewModel.getInhabitants()
             }
-        })
+            allGender.setOnClickListener {
+                viewModel.onClickGender()
+            }
+            onlyMan.setOnClickListener {
+                viewModel.onClickGender(Gender.MAN)
+            }
+            onlyWoman.setOnClickListener {
+                viewModel.onClickGender(Gender.WOMAN)
+            }
+        }
     }
 
     private fun setObservers() {
@@ -69,12 +81,14 @@ class ListFragment : Fragment() {
                 messageError.gone()
                 reloadButton.gone()
                 searchView.visible()
+                genders.visible()
             }
             viewModel.liveError.observe(viewLifecycleOwner) {
                 messageError.text = getString(R.string.error, it)
                 messageError.visible()
                 reloadButton.visible()
                 searchView.gone()
+                genders.gone()
             }
         }
     }

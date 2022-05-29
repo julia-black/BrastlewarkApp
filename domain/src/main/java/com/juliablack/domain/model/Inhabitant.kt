@@ -12,7 +12,8 @@ class Inhabitant(
     val height: Float,
     val hairColor: String,
     val professions: List<String>,
-    val friends: List<String>
+    val friends: List<String>,
+    val gender: Gender
 ) : Serializable
 
 fun InhabitantResponse.fromResponse() = Inhabitant(
@@ -24,5 +25,17 @@ fun InhabitantResponse.fromResponse() = Inhabitant(
     height,
     hairColor,
     professions,
-    friends
+    friends,
+    determinateGender()
 )
+
+//Just a guess on popular stereotypes :)
+fun InhabitantResponse.determinateGender() =
+    if (hairColor.lowercase() == "pink" || weight < 36)
+        Gender.WOMAN
+    else
+        Gender.MAN
+
+enum class Gender {
+    WOMAN, MAN
+}

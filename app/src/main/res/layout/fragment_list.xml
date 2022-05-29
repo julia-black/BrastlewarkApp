@@ -16,6 +16,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/genders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/searchView">
+
+        <ImageView
+            android:id="@+id/onlyWoman"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="16dp"
+            android:src="@mipmap/ic_woman" />
+
+        <ImageView
+            android:id="@+id/allGender"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@mipmap/ic_gender" />
+
+        <ImageView
+            android:id="@+id/onlyMan"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="16dp"
+            android:src="@mipmap/ic_man" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/messageError"
         android:layout_width="wrap_content"
@@ -35,8 +65,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/reload"
         android:backgroundTint="?colorSecondary"
+        android:text="@string/reload"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +82,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchView"
+        app:layout_constraintTop_toBottomOf="@id/genders"
         tools:itemCount="100"
         tools:listitem="@layout/view_inhabitant" />
 

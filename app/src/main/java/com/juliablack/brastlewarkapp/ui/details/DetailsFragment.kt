@@ -13,6 +13,7 @@ import com.juliablack.brastlewarkapp.ui.details.view.TextSimpleAdapter
 import com.juliablack.brastlewarkapp.util.displayImage
 import com.juliablack.brastlewarkapp.util.gone
 import com.juliablack.brastlewarkapp.util.visible
+import com.juliablack.domain.model.Gender
 import com.juliablack.domain.model.Inhabitant
 
 class DetailsFragment : Fragment() {
@@ -46,6 +47,13 @@ class DetailsFragment : Fragment() {
                 weight.text = getString(R.string.weight, it.weight)
                 height.text = getString(R.string.height, it.height)
                 hairColor.text = getString(R.string.hair_color, it.hairColor)
+
+                gender.setImageResource(
+                    if (it.gender == Gender.MAN)
+                        R.mipmap.ic_man
+                    else
+                        R.mipmap.ic_woman
+                )
 
                 if (it.professions.isEmpty()) {
                     professions.gone()
