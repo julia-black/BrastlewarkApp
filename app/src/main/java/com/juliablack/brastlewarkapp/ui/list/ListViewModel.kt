@@ -2,14 +2,18 @@ package com.juliablack.brastlewarkapp.ui.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.juliablack.domain.FilterByGenderUseCase
 import com.juliablack.domain.GetInhabitantsUseCase
+import com.juliablack.domain.SearchUseCase
 import com.juliablack.domain.model.Gender
 import com.juliablack.domain.model.Inhabitant
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class ListViewModel(
-    private val getInhabitantsUseCase: GetInhabitantsUseCase
+    private val getInhabitantsUseCase: GetInhabitantsUseCase,
+    private val searchUseCase: SearchUseCase,
+    private val filterByGenderUseCase: FilterByGenderUseCase
 ) : ViewModel() {
 
     val liveInhabitants = MutableLiveData<List<Inhabitant>>()
@@ -46,20 +50,13 @@ class ListViewModel(
     }
 
     fun onClickGender(gender: Gender? = null) {
-        liveInhabitants.postValue(filterByGender(gender))
-    }
-
-    private fun filter(list: List<Inhabitant>?, query: String) = list?.filter {
-        it.name.lowercase().contains(query.lowercase())
-    }
-
-    private fun filterByGender(gender: Gender?): List<Inhabitant>? {
-        return if (gender == null) {
-            filter(loadedInhabitants, query)
-        } else {
-            filter(loadedInhabitants?.filter {
-                it.gender == gender
-            }, query)
+        loadedInhabitants?.let {
+            liveInhabitants.postValue(filterByGender(it, gender))
         }
     }
+
+    private fun filter(list: List<Inhabitant>?, query: String) = searchUseCase.invoke(list, query)
+
+    private fun filterByGender(list: List<Inhabitant>, gender: Gender?) =
+        searchUseCase.invoke(filterByGenderUseCase.invoke(list, gender), query)
 }

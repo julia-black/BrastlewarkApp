@@ -7,7 +7,6 @@ import com.juliablack.domain.model.fromResponse
 import io.reactivex.rxjava3.core.Single
 
 class GetInhabitantsUseCase(private val repository: BrastlewarkRepository) {
-
     fun invoke(): Single<List<Inhabitant>> = repository.getInhabitants().map {
         it.toList()
     }
