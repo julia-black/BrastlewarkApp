@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.juliablack.brastlewarkapp.R
 import com.juliablack.brastlewarkapp.databinding.FragmentListBinding
 import com.juliablack.brastlewarkapp.ui.list.view.InhabitantAdapter
+import com.juliablack.brastlewarkapp.util.gone
+import com.juliablack.brastlewarkapp.util.visible
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListFragment : Fragment() {
@@ -48,13 +50,13 @@ class ListFragment : Fragment() {
             viewModel.liveInhabitants.observe(viewLifecycleOwner) {
                 list.adapter = InhabitantAdapter(it)
                 list.layoutManager = LinearLayoutManager(context)
-                messageError.visibility = View.GONE
-                reloadButton.visibility = View.GONE
+                messageError.gone()
+                reloadButton.gone()
             }
             viewModel.liveError.observe(viewLifecycleOwner) {
                 messageError.text = getString(R.string.error, it)
-                messageError.visibility = View.VISIBLE
-                reloadButton.visibility = View.VISIBLE
+                messageError.visible()
+                reloadButton.visible()
             }
         }
     }

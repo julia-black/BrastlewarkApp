@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.juliablack.brastlewarkapp.databinding.ViewInhabitantBinding
+import com.juliablack.brastlewarkapp.util.displayImage
 import com.juliablack.domain.model.Inhabitant
 
 class InhabitantAdapter(var inhabitants: List<Inhabitant>) :
@@ -21,7 +22,8 @@ class InhabitantAdapter(var inhabitants: List<Inhabitant>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
             with(inhabitants[position]) {
-                binding.name.text = this.name
+                binding.name.text = name
+                binding.image.displayImage(itemView.context, thumbnail)
             }
         }
     }

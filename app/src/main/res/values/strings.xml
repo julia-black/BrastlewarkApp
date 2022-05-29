@@ -2,4 +2,5 @@
     <string name="app_name">BrastlewarkApp</string>
     <string name="reload">Reload</string>
     <string name="error">"Error data loading: %1$s"</string>
+    <string name="user_agent">Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.181 Mobile Safari/537.36</string>
 </resources>
