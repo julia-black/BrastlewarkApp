@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.juliablack.brastlewarkapp.R
 import com.juliablack.brastlewarkapp.databinding.FragmentListBinding
+import com.juliablack.brastlewarkapp.ui.details.DetailsFragment
 import com.juliablack.brastlewarkapp.ui.list.view.InhabitantAdapter
 import com.juliablack.brastlewarkapp.util.gone
 import com.juliablack.brastlewarkapp.util.visible
+import com.juliablack.domain.model.Inhabitant
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListFragment : Fragment() {
@@ -48,7 +50,9 @@ class ListFragment : Fragment() {
     private fun setObservers() {
         with(binding) {
             viewModel.liveInhabitants.observe(viewLifecycleOwner) {
-                list.adapter = InhabitantAdapter(it)
+                list.adapter = InhabitantAdapter(it) { item ->
+                    toDetails(item)
+                }
                 list.layoutManager = LinearLayoutManager(context)
                 messageError.gone()
                 reloadButton.gone()
@@ -59,6 +63,14 @@ class ListFragment : Fragment() {
                 reloadButton.visible()
             }
         }
+    }
+
+    private fun toDetails(inhabitant: Inhabitant) {
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, DetailsFragment.newInstance(inhabitant))
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {

@@ -3,4 +3,10 @@
     <string name="reload">Reload</string>
     <string name="error">"Error data loading: %1$s"</string>
     <string name="user_agent">Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.181 Mobile Safari/537.36</string>
+    <string name="friends">Friends</string>
+    <string name="professions">Professions</string>
+    <string name="age">Age: %1$d</string>
+    <string name="hair_color">Hair Color: %1$s</string>
+    <string name="weight">Weight: %.1f kg</string>
+    <string name="height">Height: %.1f cm</string>
 </resources>

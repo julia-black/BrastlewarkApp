@@ -19,8 +19,8 @@ fun View.gone() {
     this.visibility = View.GONE
 }
 
-fun ImageView.displayImage(context: Context, url: String) {
-    //without this user agent link don't open correctly
+fun ImageView.displayImage(context: Context, url: String, width: Int, height: Int) {
+    //without this user agent links don't open correctly
     val userAgent = context.getString(R.string.user_agent)
 
     val glideUrl = GlideUrl(
@@ -40,7 +40,7 @@ fun ImageView.displayImage(context: Context, url: String) {
         .applyDefaultRequestOptions(requestOptions)
         .load(glideUrl)
         .centerCrop()
-        .override(80, 80)
+        .override(width, height)
         .diskCacheStrategy(DiskCacheStrategy.DATA)
         .thumbnail(requestBuilder)
         .into(this)
