@@ -11,6 +11,8 @@ import com.juliablack.brastlewarkapp.R
 import com.juliablack.brastlewarkapp.databinding.FragmentDetailsBinding
 import com.juliablack.brastlewarkapp.ui.details.view.TextSimpleAdapter
 import com.juliablack.brastlewarkapp.util.displayImage
+import com.juliablack.brastlewarkapp.util.gone
+import com.juliablack.brastlewarkapp.util.visible
 import com.juliablack.domain.model.Inhabitant
 
 class DetailsFragment : Fragment() {
@@ -45,11 +47,25 @@ class DetailsFragment : Fragment() {
                 height.text = getString(R.string.height, it.height)
                 hairColor.text = getString(R.string.hair_color, it.hairColor)
 
-                professions.adapter = TextSimpleAdapter(it.professions)
-                professions.layoutManager = LinearLayoutManager(context)
+                if (it.professions.isEmpty()) {
+                    professions.gone()
+                    professionsTitle.gone()
+                } else {
+                    professions.adapter = TextSimpleAdapter(it.professions)
+                    professions.layoutManager = LinearLayoutManager(context)
+                    professions.visible()
+                    professionsTitle.visible()
+                }
 
-                friends.adapter = TextSimpleAdapter(it.friends)
-                friends.layoutManager = LinearLayoutManager(context)
+                if (it.friends.isEmpty()) {
+                    friends.gone()
+                    friendTitle.gone()
+                } else {
+                    friends.adapter = TextSimpleAdapter(it.friends)
+                    friends.layoutManager = LinearLayoutManager(context)
+                    friends.visible()
+                    friendTitle.visible()
+                }
             }
         }
     }

@@ -45,6 +45,18 @@ class ListFragment : Fragment() {
         binding.reloadButton.setOnClickListener {
             viewModel.getInhabitants()
         }
+        binding.searchView.setOnQueryTextListener(object :
+            android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewModel.onQuerySearchChange(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                viewModel.onQuerySearchChange(newText)
+                return false
+            }
+        })
     }
 
     private fun setObservers() {
@@ -56,11 +68,13 @@ class ListFragment : Fragment() {
                 list.layoutManager = LinearLayoutManager(context)
                 messageError.gone()
                 reloadButton.gone()
+                searchView.visible()
             }
             viewModel.liveError.observe(viewLifecycleOwner) {
                 messageError.text = getString(R.string.error, it)
                 messageError.visible()
                 reloadButton.visible()
+                searchView.gone()
             }
         }
     }
