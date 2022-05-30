@@ -20,6 +20,14 @@ fun View.gone() {
 }
 
 fun ImageView.displayImage(context: Context, url: String, width: Int, height: Int) {
+    //without this user agent links don't open correctly
+    val userAgent = context.getString(R.string.user_agent)
+
+    val glideUrl = GlideUrl(
+        url,
+        LazyHeaders.Builder().addHeader("User-Agent", userAgent).build()
+    )
+
     val requestOptions = RequestOptions()
         .placeholder(R.drawable.ic_placeholder)
         .error(R.drawable.ic_placeholder)
@@ -30,7 +38,7 @@ fun ImageView.displayImage(context: Context, url: String, width: Int, height: In
 
     Glide.with(context)
         .applyDefaultRequestOptions(requestOptions)
-        .load(url)
+        .load(glideUrl)
         .centerCrop()
         .override(width, height)
         .diskCacheStrategy(DiskCacheStrategy.DATA)
