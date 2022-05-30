@@ -13,4 +13,6 @@ Simple Android app for finding inhabitants of the village Brastlewark.
  
 P.S. I think the most important test is logic test, so I added tests for my use cases with logic in domain module.
 
+P.P.S. It requires Java 11 for build (Settings -> Gradle -> Gradle JDK)
+
 
